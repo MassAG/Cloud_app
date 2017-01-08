@@ -1,0 +1,20 @@
+<% provide(:title, 'Update VM') %>
+<% provide(:button_text, 'Save changes') %>
+<h1>Edit your VM</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+  <%= form_for(@vm) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.label :ip %>
+  <%= f.text_field :ip, class: 'form-control' %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>   
+    </div>
+  </div>
+</div>
+

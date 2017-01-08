@@ -1,0 +1,12 @@
+<li id="vm-<%= vm.id %>">
+  <%= image_tag("debian.png", alt: "Debian logo",size: 50, :class => "img_preview") %>
+  <span class="name"><%= vm.name %></span>
+  <span class="timestamp">
+    Created <%= time_ago_in_words(vm.created_at) %> ago.
+  </span>
+  <% if  current_user?(vm.user) %>
+      <%= link_to "delete", vm, method: :delete,
+                                       data: { confirm: "You sure?" } %>
+     | <%= link_to "update", edit_vm_path(vm) %>
+      <% end %>
+</li>

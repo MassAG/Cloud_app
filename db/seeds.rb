@@ -14,3 +14,8 @@ User.create!(name:  "Massilia Ait Gherbi",
                password_confirmation: password)
 end
 
+users = User.order(:created_at).take(6)
+5.times do
+  name = "debian"
+  users.each { |user| user.vms.create!(name: name) }
+end
