@@ -4,7 +4,7 @@ User.create!(name:  "Massilia Ait Gherbi",
              password_confirmation: "motdepasse",
              admin: true)
 
-99.times do |n|
+5.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@eisti.edu"
   password = "password"
@@ -15,7 +15,7 @@ User.create!(name:  "Massilia Ait Gherbi",
 end
 
 users = User.order(:created_at).take(6)
-5.times do
-  name = "debian"
+1.times do
+  name = "ubuntu"
   users.each { |user| user.vms.create!(name: name) }
 end
