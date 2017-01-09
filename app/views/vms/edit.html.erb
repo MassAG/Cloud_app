@@ -12,6 +12,15 @@
   <%= f.label :ip %>
   <%= f.text_field :ip, class: 'form-control' %>
 
+  <%= f.label :cpu %>
+  <%= f.number_field :cpu, class: 'form-control' %>
+
+  <%= f.label :ram %>
+  <%= f.text_field :ram, class: 'form-control' %>
+
+  <%= f.label :hdd %>
+  <%= f.text_field :hdd, class: 'form-control' %>
+
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>   
     </div>

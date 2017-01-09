@@ -5,8 +5,9 @@ class VmsController < ApplicationController
   def create
     @vm = current_user.vms.build(vm_params)
     server_root_path=Rails.root.to_s
-    vms_config_file=server_root_path+"/vms/Vagrantfile"
+    vms_config_file=server_root_path+'/vms/Vagrantfile'
     if @vm.save
+      @vm.update_attributes(status:"running", ip:"192.168.0."+@vm.id.to_s)
       server_vms_path=server_root_path+"/vms/"+@vm.id.to_s
       puts "VMs path = #{server_vms_path}"
       line = Command::Runner.new("mkdir",server_vms_path.to_s)
@@ -57,11 +58,18 @@ class VmsController < ApplicationController
   private
 
     def vm_params
-      params.require(:vm).permit(:name)
+      params.require(:vm).permit(:name, :ram, :ip, :cpu, :hdd, :status)
     end
 
     def correct_user
       @vm = current_user.vms.find_by(id: params[:id])
       redirect_to root_url if @vm.nil?
+    end
+
+    def update_vagrant_config(vagrant_config)
+      f=File.open(vagrant_config)
+      f.each_line do |line|
+        @data+=line
+      end
     end
 end

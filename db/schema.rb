@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170108162748) do
+ActiveRecord::Schema.define(version: 20170109191456) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -27,8 +27,13 @@ ActiveRecord::Schema.define(version: 20170108162748) do
     t.string   "name"
     t.string   "ip"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "config"
+    t.integer  "cpu",        default: 2
+    t.integer  "ram",        default: 1024
+    t.integer  "hdd",        default: 5
+    t.string   "status"
     t.index ["user_id", "created_at"], name: "index_vms_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_vms_on_user_id"
   end
