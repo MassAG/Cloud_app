@@ -1,5 +1,5 @@
 <li id="vm-<%= vm.id %>">
-  <%= image_tag("debian.png", alt: "Debian logo",size: 50, :class => "img_preview") %>
+  <%= image_tag("ubuntu.png", alt: "Debian logo",size: 50, :class => "img_preview") %>
   <span class="name"><%= vm.name.to_s + " | RAM : "+ vm.ram.to_s + " MB | Nb CPU : "+ vm.cpu.to_s+" | IP : "+vm.ip.to_s+" | Status : "+ vm.status.to_s  %></span>
   <span class="timestamp">
     Created <%= time_ago_in_words(vm.created_at) %> ago.

@@ -17,6 +17,12 @@ class VmsController < ApplicationController
       line = Command::Runner.new("cp",vms_config_file.to_s+" "+server_vms_path.to_s)
       message = line.pass
       puts "line " + message.line
+      # change vm ip
+      #sedcommand="sed -i \'\/config.vm.network\/c\\config.vm.network \"private_network\", ip: \"192.168.0."+@vm.id.to_s+"\"\' "+server_vms_path.to_s+"/Vagrantfile"
+      #system(sedcommand)
+      #puts sedcommand
+
+      # create VM
       system("VAGRANT_CWD="+server_vms_path.to_s+" vagrant up")
 
 #      debugger
@@ -46,6 +52,18 @@ class VmsController < ApplicationController
   def update
     @vm = Vm.find(params[:id])
     if @vm.update_attributes(vm_params)
+      server_vms_path=Rails.root.to_s+"/vms/"+@vm.id.to_s
+      # change vm ram
+      sedcommand="sed -i \'\/vb.memory\/c\\vb.memory =\""+@vm.ram.to_s+"\"' "+server_vms_path.to_s+"/Vagrantfile"
+      puts sedcommand
+      system(sedcommand)
+      # change cpu
+      sedcommand="sed -i \'\/vb.cpus\/c\\vb.cpus = "+@vm.cpu.to_s+"\' "+server_vms_path.to_s+"/Vagrantfile"
+      puts sedcommand
+      system(sedcommand)
+      # restart vm
+      system("VAGRANT_CWD="+server_vms_path.to_s+" vagrant reload")
+
       flash[:success] = "VM updated"
       redirect_to root_url
     else
@@ -68,7 +86,7 @@ class VmsController < ApplicationController
 
     def update_vagrant_config(vagrant_config)
       f=File.open(vagrant_config)
-      f.each_line do |line|
+        f.each_line do |line|
         @data+=line
       end
     end
